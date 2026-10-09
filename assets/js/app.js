@@ -73,7 +73,7 @@ function oncreatetodoList(arr){
     arr.forEach((ele)=>{
         result +=`<li class="list-group-item d-flex justify-content-between align-items-center" id="${ele.id}">
                     <div>
-                    <input type="checkbox"
+                    <input type="checkbox" onclick="onTodoCompletedChange(this)"
                         ${ele.isCompleted ? 'checked' : ''}>
                     <strong>${ele.todoItem}</strong>
                 </div>
@@ -126,7 +126,7 @@ async function onTodoAdd(eve){
         li.className = 'list-group-item d-flex justify-content-between align-items-center';
         li.id = todoObj.id;
         li.innerHTML = `<div>
-                            <input type="checkbox"
+                            <input type="checkbox" onclick="onTodoCompletedChange(this)"
                         ${todoObj.isCompleted ? 'checked' : ''}>
                         <strong>${todoObj.todoItem}</strong>
                         </div>
@@ -229,7 +229,7 @@ async function updateTodo(){
         state.todoArr[getIndex]=updateObj;
         let li = document.getElementById(updateId)
         li.innerHTML = `<div>
-                            <input type="checkbox"
+                            <input type="checkbox" onclick="onTodoCompletedChange(this)"
                         ${updateObj.isCompleted ? 'checked' : ''}>
                         <strong>${updateObj.todoItem}</strong>
                         </div>
