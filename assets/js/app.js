@@ -102,7 +102,8 @@ async function onTodoAdd(eve){
         let todoObj={
             todoItem : todoInput.value,
             isCompleted : (isCompleted.value === 'yes'),
-            createdAt:Date.now()
+            createdAt:Date.now(),
+            description:description.value,
         }
         showSpinner()
         let res = await fetch(TODO_URL,{
@@ -188,7 +189,8 @@ async function editTodo(ele){
     state.editId = editId;
     let editObj = state.todoArr.find(d=>d.id === editId)
     todoInput.value = editObj.todoItem;
-    isCompleted.value = editObj.isCompleted ? 'yes' : 'no',
+    isCompleted.value = editObj.isCompleted ? 'yes' : 'no';
+    description.value = editObj.description;
     addtodoBtn.classList.add('d-none')
     updatetodoBtn.classList.remove('d-none')
     let textNode = document.createTextNode('Update Todo')
@@ -205,6 +207,7 @@ async function updateTodo(){
         let updateObj={
             todoItem:todoInput.value.trim(),
             isCompleted:isCompleted.value === 'yes' ? true : false,
+            description:description.value,
             id:updateId
         }
         let UPDATE_URL = `${BASE_URL}/todos/${updateId}.json`;
@@ -249,6 +252,7 @@ async function updateTodo(){
 
 async function onTodoCompletedChange(ele){
     try{
+        let updateId = ele.closest('li').id;
         let updateObj =  {isCompleted : ele.checked};
         let UPDATE_URL = `${BASE_URL}/todos/${updateId}.json`;
         let res = await fetch(UPDATE_URL,{
